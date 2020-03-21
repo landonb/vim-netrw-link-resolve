@@ -1,0 +1,25 @@
+*netrw-link-resolve.txt*  Reopens file at resolved path to avoid file-exists error on save.
+
+netrw Link Resolve~
+
+Author: Landon Bouma <https://tallybark.com/>
+License: https://creativecommons.org/publicdomain/zero/1.0/
+
+INTRODUCTION                                    *netrw-link-resolve*
+
+After a file is opened via `netrw`, e.g., using `:Explore`, this plugin
+closes the opened file if if was opened from a symlink path, and reopens
+the file using its real path.
+
+This avoids a problem that occurs if you open the same file using
+two different paths, as Vim will treat the buffers independently
+and will not let you save changes without a bang, e.g., `:w!`,
+and scolds you otherwise:
+>
+  E13: File exists (add ! to override)
+<
+COMMANDS                                        *netrw-link-resolve-commands*
+
+None. Uses the `g:Netrw_funcref` callback to run.
+
+ vim:tw=78:ts=8:ft=help:norl:
