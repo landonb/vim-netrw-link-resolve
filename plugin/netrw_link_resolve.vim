@@ -57,7 +57,7 @@ function! FollowSymlinkAndCleanupBufSurfHistory()
   " Check if file type is a symlink, and resolve to canonical path if so.
   if getftype(l:sympath) == 'link'
     " Resolve the file path and open the "actual" file.
-    let l:canpath = resolve(l:sympath)
+    let l:canpath = resolve(expand(l:sympath))
     " Check if the canonical path is different than what was opened.
     if l:sympath != l:canpath
       " Remove the symlink buffer.
