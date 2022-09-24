@@ -8,12 +8,23 @@
 "       https://github.com/landonb/vim-source-reloader
 "  silent! unlet g:loaded_netrw_link_resolve
 
-" NOTE: There's an open issue with using g:Netrw_funcref as List, which we
-" workaround by including a patched copy of netrw.vim in this project. But
-" if upstream is fixed and we want to remove that patch, we would later
-" want to check the version here, e.g.,
-"   if exists("g:loaded_netrw_link_resolve") || &cp || v:version < 802
-if exists("g:loaded_netrw_link_resolve") || &cp
+" NOTE: There's a bug (a variable typo) in earlier versions of
+"       Vim which affects using g:Netrw_funcref as List.
+" The bug was fixed in commit 89a9c15, one commit before patch 8.2.3386.
+" - One solution is to include a recent copy of netrw.vim in this project.
+" - Another solution is to demand that the user's Vim includes the fix.
+" The second solution is ideal, but for some unfortunate users (those on
+" older distros, especially, or those that haven't built from source in
+" a while), it might require that they build their own binary, or find
+" one from a different source.
+" - E.g., the author's Linux Mint 19.3 on 2022-09-24 shows a version that
+"   has the bug: `apt show vim` → 'Version: 2:8.0.1453-1ubuntu1.9'.
+"   (But I've been building from sources for a number of years now; mostly
+"    because I like to replace the Vim alt-tab icon with Burglar Bender.)
+" NOTE: The traditional version check is, e.g., `v:version < 900`,
+"       but you can be patch level-specific using `has()`.
+
+if exists("g:loaded_netrw_link_resolve") || &cp || ! has("patch-8.2.3386")
   finish
 endif
 let g:loaded_netrw_link_resolve = 1

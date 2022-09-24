@@ -22,6 +22,15 @@ and scolds you otherwise:
 
 None. Uses the `g:Netrw_funcref` callback to run.
 
+## Prerequisites
+
+There's an old `netrw` bug in Vim that breaks this plugin.
+
+The bug was fixed in patch 8.2.3386, so you'll need to ensure you're
+running that version or better. (Alternatively, you could copy `netrw.vim`
+from the latest Vim source to this plugin's `autoload/` directory, if you
+are unable to find or build a newer version of Vim.)
+
 ## Installation
 
 Take advantage of Vim's packages feature (`:h packages`), e.g.,:
