@@ -4,9 +4,10 @@
 " License: https://creativecommons.org/publicdomain/zero/1.0/
 " vim:tw=0:ts=2:sw=2:et:norl:ft=vim
 
-" YOU: Uncomment the 'unlet', then <F9> to reload this file.
-"       https://github.com/landonb/vim-source-reloader
-"  silent! unlet g:loaded_netrw_link_resolve
+" -------------------------------------------------------------------
+
+" GUARD: Press <F9> to reload this plugin (or :source it).
+" - Via: https://github.com/embrace-vim/vim-source-reloader#↩️
 
 " NOTE: There's a bug (a variable typo) in earlier versions of
 "       Vim which affects using g:Netrw_funcref as List.
@@ -24,10 +25,18 @@
 " NOTE: The traditional version check is, e.g., `v:version < 900`,
 "       but you can be patch level-specific using `has()`.
 
+if expand("%:p") ==# expand("<sfile>:p")
+  unlet g:loaded_netrw_link_resolve
+endif
+
 if exists("g:loaded_netrw_link_resolve") || &cp || ! has("patch-8.2.3386")
+
   finish
 endif
+
 let g:loaded_netrw_link_resolve = 1
+
+" -------------------------------------------------------------------
 
 " Mechanism to close opened file if opened at symlink path, and reopen at real path.
 "
