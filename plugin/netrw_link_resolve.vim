@@ -25,11 +25,11 @@
 " NOTE: The traditional version check is, e.g., `v:version < 900`,
 "       but you can be patch level-specific using `has()`.
 
-if expand("%:p") ==# expand("<sfile>:p")
-  unlet g:loaded_netrw_link_resolve
+if expand('%:p') ==# expand('<sfile>:p')
+  unlet! g:loaded_netrw_link_resolve
 endif
 
-if exists("g:loaded_netrw_link_resolve") || &cp || ! has("patch-8.2.3386")
+if exists('g:loaded_netrw_link_resolve') || &cp || ! has('patch-8.2.3386')
 
   finish
 endif
