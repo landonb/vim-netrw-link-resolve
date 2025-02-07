@@ -42,7 +42,7 @@ let g:loaded_netrw_link_resolve = 1
 "
 " - I've seen more basic, but broken, examples of how to do this, e.g.,
 "       command! FollowSymlink execute "file " . resolve(expand("%")) | edit
-"   but this approach has a glaring problem: if does not delete and wipe
+"   but this approach has a glaring problem: it does not delete and wipe
 "   the symlink buffer, so Vim thinks it has two buffers open to the same
 "   file. So when you try to save, it fails, and Vim gripes:
 "       E13: File exists (add ! to override)
