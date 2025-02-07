@@ -64,14 +64,6 @@ let g:loaded_netrw_link_resolve = 1
 "   ensures that I can open any file from either its syumlink, or using its
 "   canonical path, and Vim won't 'File-exists' me.
 
-function! s:PopBufSurfHistory()
-  if !exists("w:history") || (len(w:history) <= 0)
-    return
-  endif
-  call remove(w:history, w:history_index)
-  let w:history_index -= 1
-endfunction
-
 function! FollowSymlinkAndCleanupBufSurfHistory()
   " Use '%:p' for full path, as opposed to possibly relative '%' path.
   let l:sympath = expand('%:p')
@@ -81,16 +73,15 @@ function! FollowSymlinkAndCleanupBufSurfHistory()
     let l:canpath = resolve(expand(l:sympath))
     " Check if the canonical path is different than what was opened.
     if l:sympath != l:canpath
-      " Remove the symlink buffer.
-      call s:PopBufSurfHistory()
       " Open a temporary new buffer, to wipe the old one.
       enew
-      " Remove the enew buffer from BufSurf history.
-      call s:PopBufSurfHistory()
       " Note: Wipe the buffer, not delete, lest Vim re-open file at symlink path!
       " - WRONG: exe "bd " . l:sympath
       exe "bw " . l:sympath
       " Almost done: Open the file using its real path.
+      " - DUNNO: (n)vim discards the "enew" buffer if you "edit" another path
+      "   without having touched the "enew" buffer. (Which seems unexpected,
+      "   and I cannot find documented; and while hidden=1, bufhidden is "".)
       exe "edit " . l:canpath
       " Now we can be done: Remove enew from the buffer list as well.
     endif
