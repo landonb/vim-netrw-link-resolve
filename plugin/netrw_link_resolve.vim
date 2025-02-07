@@ -64,7 +64,7 @@ let g:loaded_netrw_link_resolve = 1
 "   ensures that I can open any file from either its syumlink, or using its
 "   canonical path, and Vim won't 'File-exists' me.
 
-function! FollowSymlinkAndCleanupBufSurfHistory()
+function! ReopenSymlinkAtCanonicalPath()
   " Use '%:p' for full path, as opposed to possibly relative '%' path.
   let l:sympath = expand('%:p')
   " Check if file type is a symlink, and resolve to canonical path if so.
@@ -104,7 +104,7 @@ function! s:NetrwSetupCallback()
     let g:Netrw_funcref = [g:Netrw_funcref]
   endif
 
-  let g:Netrw_funcref += [function("FollowSymlinkAndCleanupBufSurfHistory")]
+  let g:Netrw_funcref += [function("ReopenSymlinkAtCanonicalPath")]
 endfunction
 
 call s:NetrwSetupCallback()
