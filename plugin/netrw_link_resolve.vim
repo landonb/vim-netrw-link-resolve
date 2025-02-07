@@ -30,7 +30,7 @@ if expand('%:p') ==# expand('<sfile>:p')
   unlet! g:loaded_netrw_link_resolve
 endif
 
-if exists('g:loaded_netrw_link_resolve') || &cp || ! has('patch-8.2.3386')
+if exists('g:loaded_netrw_link_resolve') || &cp || !(has('nvim') || has('patch-8.2.3386'))
 
   finish
 endif
