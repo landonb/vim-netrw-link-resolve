@@ -9,8 +9,9 @@
 " GUARD: Press <F9> to reload this plugin (or :source it).
 " - Via: https://github.com/embrace-vim/vim-source-reloader#↩️
 
-" NOTE: There's a bug (a variable typo) in earlier versions of
-"       Vim which affects using g:Netrw_funcref as List.
+" NOTE: There's a bug (a variable typo author submitted patch on) in
+"       earlier versions of Vim which affects using g:Netrw_funcref
+"       as List.
 " The bug was fixed in commit 89a9c15, one commit before patch 8.2.3386.
 " - One solution is to include a recent copy of netrw.vim in this project.
 " - Another solution is to demand that the user's Vim includes the fix.
@@ -99,13 +100,12 @@ endfunction
 " ***
 
 " Add function to netrw post-edit callback list (which could be undef or atom).
-" - LATER/2020-03-21: There's an open issue in Vim's netrw.vim which breaks when
-"   g:Netrw_funcref is a List -- but we should not use g:Netrw_funcref as just a
-"   function ref., because then another plugin cannot also hook the callback! So
-"   to play nice with others, we must treat that value as a List.
-"   - (lb): In any case, I made a local, fixed copy of netrw.vim. Nothing you
-"     gotta worry about, just a reminder to someday remove the local, overriding
-"     copy of autoload/netrw.vim once it's fixed upstream.
+" - HSTRY/2022-09-24: From 2020-03-21 until now, this plugin shipped with a
+"   local copy of netrw.vim to work around an old bug that happeneed when
+"   g:Netrw_funcref was a List — fixed in Vim that has('patch-8.2.3386').
+"   - Beware not to use g:Netrw_funcref as just a function ref., because
+"     then another plugin cannot also hook the callback. To play nice with
+"     others, treat g:Netrw_funcref as a List.
 function! s:NetrwSetupCallback()
   if !exists("g:Netrw_funcref")
     let g:Netrw_funcref = []
