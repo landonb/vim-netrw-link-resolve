@@ -1,6 +1,6 @@
 *netrw-link-resolve.txt*  Reopens file at resolved path to avoid file-exists error on save.
 
-netrw Link Resolve~
+netrw Link Resolve ~
 
 Author: Landon Bouma <https://tallybark.com/>
 License: https://creativecommons.org/publicdomain/zero/1.0/
